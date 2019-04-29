@@ -1,31 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function App() {
-  const profiles = [
-    { name: 'Taro', age: 30 },
-    { name: 'Yooooo', age: 3 },
-    { name: 'Woooooo' }
-  ];
+const App = () => <Counter />;
 
-  return (
-    <div>
-      {profiles.map((profile, index) => {
-        return <User name={profile.name} age={profile.age} key={index} />;
-      })}
-    </div>
-  );
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+
+  increase = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+
+  decrease = () => {
+    this.setState({ count: this.state.count - 1 });
+  };
+
+  zero = () => {
+    this.setState({ count: 0 });
+  };
+
+  render() {
+    return (
+      <div>
+        <div>Count:{this.state.count}</div>
+        <button onClick={this.increase}>+</button>
+        <button onClick={this.decrease}>-</button>
+        <button onClick={this.zero}>0</button>
+      </div>
+    );
+  }
 }
-
-const User = props => {
-  return (
-    <div>
-      My name is {props.name}, and {props.age} years old.
-    </div>
-  );
-};
-
-User.defaultProps = {
-  age: 50
-};
 
 export default App;
