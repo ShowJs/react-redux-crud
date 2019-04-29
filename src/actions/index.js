@@ -1,9 +1,14 @@
-export const INCREASE = 'INCREASE';
-export const DECREASE = 'DECREASE';
+import axios from 'axios';
+// import events from '../reducers/events';
+// import { dispatch } from '../../../Library/Caches/typescript/3.4.3/node_modules/rxjs/internal/observable/pairs';
 
-export const increase = () => ({
-  type: INCREASE
-});
-export const decrease = () => ({
-  type: DECREASE
-});
+export const READ_EVENTS = 'READ_EVENTS';
+
+const ROOT_URL = 'Https://udemy-utils.herokuapp.com/api/v1';
+const QUERYSTRING = '?token=token123';
+
+export const readEvents = () => async dispatch => {
+  const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
+  console.log(response);
+  dispatch({ type: READ_EVENTS, response });
+};
