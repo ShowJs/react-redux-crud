@@ -1,37 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { increase, decrease } from './actions';
 
-const App = () => <Counter />;
-
-class Counter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 0
-    };
-  }
-
-  increase = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
-
-  decrease = () => {
-    this.setState({ count: this.state.count - 1 });
-  };
-
-  zero = () => {
-    this.setState({ count: 0 });
-  };
-
+class App extends Component {
   render() {
+    const props = this.props;
+
     return (
       <div>
-        <div>Count:{this.state.count}</div>
-        <button onClick={this.increase}>+</button>
-        <button onClick={this.decrease}>-</button>
-        <button onClick={this.zero}>0</button>
+        <div>Count:{props.value}</div>
+        <button onClick={props.increase}>+</button>
+        <button onClick={props.decrease}>-</button>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({ value: state.count.value });
+
+// const mapDispatchToProps = dispatch => ({
+//   increase: () => dispatch(increase()),
+//   decrease: () => dispatch(decrease())
+// });
+
+export default connect(
+  mapStateToProps,
+  { increase, decrease }
+)(App);
